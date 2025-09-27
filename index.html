@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Raditya Ar Rahman</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #0f0f1e;
+            --secondary: #1e1e3f;
+            --accent: #00d4ff;
+            --accent-2: #ff006e;
+            --accent-3: #8338ec;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8b3;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--secondary);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        /* Loading Screen */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 3px solid transparent;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 3px solid transparent;
+            border-top-color: var(--accent-2);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 15, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary) !important;
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent); }
+            to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent), 0 0 40px var(--accent); }
+        }
+
+        .typed-text {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            min-height: 60px;
+        }
+
+        .hero-buttons {
+            margin-top: 40px;
+        }
+
+        .btn-modern {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary-modern {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-outline-modern {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-outline-modern:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Floating Social Icons */
+        .floating-social {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateX(10px);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        /* About Section */
+        .about-img-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-img-glow {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            z-index: 1;
+            opacity: 0.5;
+            filter: blur(40px);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .skill-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skill-level {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            position: relative;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .skill-percentage {
+            position: absolute;
+            right: 0;
+            top: -25px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Timeline Modern */
+        .timeline-modern {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-modern::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item-modern {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-content-modern {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item-modern:nth-child(odd) .timeline-content-modern {
+            margin-left: auto;
+        }
+
+        .timeline-content-modern:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-date-modern {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            background: var(--gradient-1);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card-modern {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            group: project;
+        }
+
+        .project-card-modern:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .project-image-modern {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card-modern:hover .project-image-modern {
+            transform: scale(1.1);
+        }
+
+        .project-overlay-modern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card-modern:hover .project-overlay-modern {
+            opacity: 1;
+        }
+
+        .project-content-modern {
+            padding: 30px;
+        }
+
+        .project-tech-modern {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tech-badge-modern {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        /* Contact Form Modern */
+        .contact-form-modern {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .form-control-modern {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control-modern:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-control-modern::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Footer Modern */
+        footer {
+            background: var(--secondary);
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            line-height: 50px;
+            margin: 0 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .typed-text {
+                font-size: 1.3rem;
+            }
+            
+            .floating-social {
+                display: none;
+            }
+            
+            .timeline-modern::before {
+                left: 30px;
+            }
+            
+            .timeline-content-modern {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-dot-modern {
+                left: 30px;
+            }
+            
+            .timeline-date-modern {
+                left: 30px;
+                transform: translateX(0);
+            }
+            
+            .about-img {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Floating Social Icons -->
+    <div class="floating-social">
+        <a href="https://www.tiktok.com/@kyriee0._" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/kirinnn_.12/?utm_source=ig_web_button_share_sheet" class="social-icon"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Raditya Ar Rahman</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Tentang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Keahlian</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Pengalaman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Proyek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content" data-aos="fade-right">
+                        <h1>Raditya Ar Rahman</h1>
+                        <div class="typed-text">
+                            <span id="typed-text"></span>
+                        </div>
+                        <div class="hero-buttons">
+                            <a href="#projects" class="btn-modern btn-primary-modern">Lihat Karya</a>
+                            <a href="#contact" class="btn-modern btn-outline-modern">Hubungi Saya</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center floating" data-aos="fade-left">
+                        <div class="about-img-container">
+                            <div class="about-img-glow"></div>
+                            <img src="image/WhatsApp_Image_2025-09-27_at_16.56.40-removebg-preview.png" alt="Profile" class="about-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Content Creator & Web Programming</h3>
+                        <p class="lead">I am a Content Creator and Web Programmer with skills in producing engaging content, including video shooting and editing, as well as developing modern, responsive, and functional websites. Experienced in combining creativity and technical expertise to deliver impactful and professional results.</p>
+                        <p>Experienced as a Content Creator & Graphic Design Intern at Hotel Holiday Resort Lombok, responsible for producing engaging visual content, shooting and editing videos, and designing promotional materials to support the hotel's branding and marketing efforts.</p>
+                        <div class="row mt-4">
+                            <div class="col-sm-6 mb-3">
+                                <p><i class="fas fa-user me-2 text-primary"></i> <strong>Nama:</strong> Raditya Ar Rahman</p>
+                                <p><i class="fas fa-birthday-cake me-2 text-primary"></i> <strong>Usia:</strong> 17 Tahun</p>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Lokasi:</strong>Sekarbela Pesinggahan, Kota Mataram</p>
+                                <p><i class="fas fa-envelope me-2 text-primary"></i> <strong>Email:</strong> arrahmanraditya5@gmail.com</p>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-modern btn-primary-modern mt-3">Download CV</a>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="text-center">
+                        <div class="about-img-container">
+                            <div class="about-img-glow"></div>
+                            <img src="image/WhatsApp Image 2025-09-27 at 17.10.30.jpeg" alt="About" class="about-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h4 class="skill-name">Web/Frontend Development</h4>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-width="90">
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="skill-name">Content Creator</h4>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-width="85">
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4 class="skill-name">UI/UX Design</h4>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-width="80">
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Experience</h2>
+            <div class="timeline-modern">
+                <div class="timeline-item-modern" data-aos="fade-right">
+                    <div class="timeline-dot-modern"></div>
+                    <div class="timeline-date-modern">Jun 2025 - Now</div>
+                    <div class="timeline-content-modern">
+                        <h4>Trainee as a Graphic Designer and Content Creator</h4>
+                        <h5 class="text-primary">In Holiday Resort Lombok</h5>
+                        <p>Internship at Hotel Holiday Resort Lombok as a Graphic Designer and Content Creator, with experience in creating engaging visual designs, producing and editing promotional videos, and managing digital content to support the hotel’s branding and marketing strategies.</p>
+                    </div>
+                </div>
+                <div class="timeline-item-modern" data-aos="fade-right">
+                    <div class="timeline-dot-modern"></div>
+                    <div class="timeline-date-modern">Agist 2025 - Now</div>
+                    <div class="timeline-content-modern">
+                        <h4>Create a Website For a Villa In Gili Meno </h4>
+                        <h5 class="text-primary">Meno Island Villas</h5>
+                        <p>Mengembangkan sebuah website untuk Villa di Gili Meno, dengan fokus pada desain modern, tampilan yang responsif, serta fitur yang memudahkan calon tamu dalam melihat informasi, galeri, dan melakukan pemesanan. Website ini dirancang untuk mendukung branding serta meningkatkan daya tarik villa di pasar digital.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Project</h2>
+            <div class="projects-grid">
+                <div class="project-card-modern" data-aos="fade-up" data-aos-delay="100">
+                    <div class="position-relative overflow-hidden">
+                        <img src="image/desain.png" alt="Project 1" class="project-image-modern">
+                        <div class="project-overlay-modern">
+                            <div class="text-center">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content-modern">
+                        <h4>Design Grafis</h4>
+                        <p>I am a Graphic Designer who is creative and detail-oriented, with expertise in designing various visual materials such as posters, logos, social media content, and promotional assets.</p>
+                        <div class="project-tech-modern">
+                            <span class="tech-badge-modern">Canva</span>
+                            <span class="tech-badge-modern">Pixellab</span>
+                            <span class="tech-badge-modern">Figma</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-modern" data-aos="fade-up" data-aos-delay="200">
+                    <div class="position-relative overflow-hidden">
+                        <img src="image/photograpy.jpg" alt="Project 2" class="project-image-modern">
+                        <div class="project-overlay-modern">
+                            <div class="text-center">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content-modern">
+                        <h4>Content Creator & Video Editor</h4>
+                        <p>I am a Content Creator, Photographer, and Video Editor specializing in producing creative and engaging visual content. Experienced in photography, concept development, and editing photos and videos for various purposes such as social media, promotion, and branding.</p>
+                        <div class="project-tech-modern">
+                            <span class="tech-badge-modern">Capcut</span>
+                            <span class="tech-badge-modern">Alight Motion</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-modern" data-aos="fade-up" data-aos-delay="300">
+                    <div class="position-relative overflow-hidden">
+                        <img src="https://picsum.photos/seed/proj3/400/250" alt="Project 3" class="project-image-modern">
+                        <div class="project-overlay-modern">
+                            <div class="text-center">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content-modern">
+                        <h4>Web Development</h4>
+                        <p>I am a Web Developer/Programmer specializing in building and developing modern, responsive, and user-friendly websites. Skilled in technologies such as HTML, CSS And JavaScript, with experience in creating websites from front-end design to interactive functionality.</p>
+                        <div class="project-tech-modern">
+                            <span class="tech-badge-modern">HTML</span>
+                            <span class="tech-badge-modern">CSS</span>
+                            <span class="tech-badge-modern">JAVA SCRIPT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Contact Me</h2>
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="contact-form-modern">
+                        <form id="waFormModern">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" id="name" class="form-control form-control-modern" placeholder="Nama Anda" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="email" id="email" class="form-control form-control-modern" placeholder="Email Anda" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="subject" class="form-control form-control-modern" placeholder="Subjek" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea id="message" class="form-control form-control-modern" rows="5" placeholder="Pesan Anda" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-modern btn-primary-modern w-100">Kirim Pesan</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="glass-card h-100">
+                        <h3 class="mb-4">Mari Berkolaborasi</h3>
+                        <p class="lead">Saya selalu terbuka untuk diskusi tentang proyek baru, ide kreatif, atau peluang untuk menjadi bagian dari visi Anda.</p>
+                        <div class="contact-info mt-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-envelope me-3 text-primary"></i>
+                                <span>arrahmanraditya5@gmail.com</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-phone me-3 text-primary"></i>
+                                <span>+62 899 8023 803</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-map-marker-alt me-3 text-primary"></i>
+                                <span>Mataram, Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://www.tiktok.com/@kyriee0._"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/kirinnn_.12/?utm_source=ig_web_button_share_sheet"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="mb-0">&copy; 2024 Raditya Ar Rahman. Crafted with <i class="fas fa-heart text-danger"></i> using modern web technologies</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+document.getElementById("waFormModern").addEventListener("submit", function(e) {
+    e.preventDefault(); // stop submit default bawaan template
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let subject = document.getElementById("subject").value;
+    let message = document.getElementById("message").value;
+
+    let phone = "628998023803"; // ganti ke nomor WA kamu
+
+    let text = `Halo, saya *${name}* (Email: ${email}).%0A%0A` +
+               `Subjek: *${subject}*%0A` +
+               `Pesan:%0A${message}`;
+
+    // cek device → mobile pakai wa.me, desktop pakai web.whatsapp
+    let isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    let url = isMobile
+        ? `https://wa.me/${phone}?text=${text}`
+        : `https://web.whatsapp.com/send?phone=${phone}&text=${text}`;
+
+    window.open(url, "_blank");
+
+    // reset form setelah klik
+    document.getElementById("waFormModern").reset();
+});
+</script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Hide loader
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Cursor hover effects
+        const hoverElements = document.querySelectorAll('a, button, .skill-item, .project-card-modern');
+        hoverElements.forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#00d4ff'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Typed.js
+        const typed = new Typed('#typed-text', {
+            strings: ['UI/UX Designer', 'Web Programming', 'Content Creator'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+
+        // Theme Toggle
+        let isDarkMode = true;
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (isDarkMode) {
+                body.style.background = '#ffffff';
+                body.style.color = '#333333';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                body.style.background = 'var(--primary)';
+                body.style.color = 'var(--text-primary)';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            isDarkMode = !isDarkMode;
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 15, 30, 0.95)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 30, 0.8)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Skill progress animation
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target;
+                    const width = progressBar.getAttribute('data-width');
+                    progressBar.style.width = width + '%';
+                }
+            });
+        });
+
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            skillObserver.observe(bar);
+        });
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Create success message
+            const successDiv = document.createElement('div');
+            successDiv.className = 'alert alert-success alert-dismissible fade show mt-3';
+            successDiv.style.background = 'rgba(0, 212, 255, 0.2)';
+            successDiv.style.border = '1px solid var(--accent)';
+            successDiv.style.color = 'var(--text-primary)';
+            successDiv.innerHTML = `
+                <strong>Success!</strong> Your message has been sent. I'll get back to you soon!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            this.appendChild(successDiv);
+            this.reset();
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 5000);
+        });
+
+        // Parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.floating');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
